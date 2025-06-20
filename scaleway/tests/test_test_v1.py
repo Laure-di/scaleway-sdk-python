@@ -7,7 +7,6 @@ import utils
 from scaleway import Client, WaitForOptions
 from scaleway.test.v1 import EyeColors, Human, HumanStatus, TestV1API
 
-
 @unittest.skip("API test is not deploy")
 class TestTestV1(unittest.TestCase):
     def setUp(self) -> None:
