@@ -44,20 +44,32 @@ class TestE2EServerCreation(unittest.TestCase):
             self.blockAPI.delete_volume(volume_id=volume.id)
             logger.info("✅ Volume {volume.id} has been deleted")
         if self._server:
-            self.api.delete_server(zone=self.zone, server_id=self._server.id)
+            self.instanceAPI.delete_server(zone=self.zone, server_id=self._server.id)
             logger.info(f"🗑️ Deleted server: {self._server.id}")
 
     def wait_test_instance_server(self, server_id):
         interval = interval
         for i in range(1, max_retry):
             interval *= i
-            s = self.api.get_server(zone=self.zone, server_id=server_id)
+            s = self.instanceAPI.get_server(zone=self.zone, server_id=server_id)
             if s.state == "running":
                 logger.info(f"✅ Server {server_id} is running.")
                 break
             time.sleep(interval)
         else:
             self.fail("Server did not reach 'running' state in time.")
+
+    def wait_test_instance_volume(self, volume_id):
+        interval = interval
+        for i in range(1, max_retry):
+            interval *= i
+            s = self.blockAPI.get_volume(zone=self.zone, volume_id=volume_id)
+            if s.state == "attached":
+                logger.info(f"✅ Volume {volume_id} is attached.")
+                break
+            time.sleep(interval)
+        else:
+            self.fail("Server did not reach 'attached' state in time.")
 
     def create_test_instance_server(self) -> Server:
         volume = {
@@ -104,9 +116,10 @@ class TestE2EServerCreation(unittest.TestCase):
         self.instanceAPI.attach_server_volume(
             server_id=server.id, volume_id=additional_volume.id
         )
-        logger.info(f"🔗 Attached volume {additional_volume.id} to server {server.id}")
 
-        time.sleep(timeout_attach)
+        self.wait_test_instance_volume(additional_volume.id)
+
+        logger.info(f"🔗 Attached volume {additional_volume.id} to server {server.id}")
 
         updated_server = self.instanceAPI.get_server(
             zone=self.zone, server_id=server.id
