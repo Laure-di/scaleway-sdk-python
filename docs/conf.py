@@ -9,29 +9,24 @@
 import os
 import sys
 
+sys.path.insert(0, os.path.abspath(".."))
 
-project = "Scaleway Python SDK"
-copyright = "2022, Scaleway"
-author = "Scaleway"
+project = 'Scaleway SDK Python'
+copyright = '2025, Scaleway Devtools Team'
+author = 'Scaleway Devtools Team'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx.ext.autosummary",
-    "sphinx_rtd_theme",
-]
-autosummary_generate = True
+extensions = ["sphinx_immaterial"]
 
-templates_path = ["_templates"]
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+templates_path = ['_templates']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+
 
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = "sphinx_rtd_theme"
-html_static_path = ["_static"]
-
-sys.path.insert(0, os.path.abspath(".."))
+html_theme = 'sphinx_immaterial'
+html_static_path = ['_static']

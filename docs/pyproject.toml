@@ -2,13 +2,13 @@
 name = "scaleway-docs"
 version = "2.0.0"
 description = ""
-authors = ["Scaleway <opensource@scaleway.com>"]
+authors = ["Scaleway Devtools Team"]
 license = "BSD"
 
 [tool.poetry.dependencies]
-python = "^3.8"
-sphinx-rtd-theme = "^3.0.2"
-Sphinx = "^7"
+python = ">=3.13"
+sphinx = ">=8.2.3,<9.0.0"
+sphinx-immaterial = ">=0.13.6,<0.14.0"
 scaleway-core = { path = "../scaleway-core", develop = true }
 scaleway = { path = "../scaleway", develop = true }
 scaleway-async = { path = "../scaleway-async", develop = true }
